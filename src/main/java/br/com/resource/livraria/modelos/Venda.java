@@ -30,9 +30,10 @@ public class Venda {
 	
 	@OneToMany(mappedBy="venda", cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<LivroVenda> livros = new ArrayList<LivroVenda>();
-
+	
 	public void adicionaLivro(Livro livro, int qtd) {
 		LivroVenda livroVenda = new LivroVenda(livro, this, qtd);
+		
 		//relacionamento bilateral
 		livros.add(livroVenda);
 		livro.getVendas().add(livroVenda);
@@ -41,15 +42,7 @@ public class Venda {
 		livroVenda.setSubtotal(subTotal);
 		
 		this.total += subTotal;
-		
-	}
-	
-	public List<LivroVenda> getLivros() {
-		return livros;
-	}
-
-	public void setLivros(List<LivroVenda> livros) {
-		this.livros = livros;
+		livro.alteraEstoque(qtd);
 	}
 	
 	public Cliente getCliente() {

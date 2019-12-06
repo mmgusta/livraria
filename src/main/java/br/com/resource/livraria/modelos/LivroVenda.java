@@ -77,4 +77,6 @@ public class LivroVenda {
 	public void setSubtotal(double subtotal) {
 		this.subtotal = subtotal;
 	}
+	
+	
 }

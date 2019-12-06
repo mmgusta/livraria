@@ -35,17 +35,17 @@ public class Livro {
 	@JoinColumn(name="genero_id")
 	private Genero genero;
 	
-	@ManyToMany(cascade=CascadeType.ALL)
-	@JoinTable(name="escreve", joinColumns = {
-			@JoinColumn(referencedColumnName="id")},
-			inverseJoinColumns = {
-					@JoinColumn(referencedColumnName="id")
-			})
+	@ManyToMany
+	@JoinTable(name="escreve")
 	private List<Autor> autores;
 	
 	@OneToMany(mappedBy="livro", cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<LivroVenda> vendas = new ArrayList<LivroVenda>();
-
+	
+	public void alteraEstoque(int qtd) {
+		this.estoque -= qtd;
+	}
+	
 	public List<LivroVenda> getVendas() {
 		return vendas;
 	}
